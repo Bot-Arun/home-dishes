@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "test-app",
-    "slug": "test-app",
+    "name": "home-dishes",
+    "slug": "home-dishes",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

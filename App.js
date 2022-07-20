@@ -1,53 +1,32 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Dimensions, NativeModules, TextInput, Pressable, TouchableOpacity, TouchableNativeFeedback, TouchableOpacityComponent, Touchable, Platform } from 'react-native';
-import { TailwindProvider } from 'tailwindcss-react-native';
-import NumericInput from 'react-native-numeric-input';
+import  {createStackNavigator} from '@react-navigation/stack'
+import  {NavigationContainer} from '@react-navigation/native'
+import { Ionicons ,MaterialIcons} from '@expo/vector-icons';
+import 'react-native-gesture-handler';
+import Home from './components/Home'
+import History from './components/History'
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import Login from './components/Login'
 
-const width = Dimensions.get('window').width;
-const height = Dimensions.get('window').height;
-const {StatusBarManager} = NativeModules;
-var statusbar_from_os = 0 ;
-if(Platform.OS != 'web') {
-  var statusbar_from_os = Platform.OS === 'ios' ? 20 : StatusBarManager.HEIGHT;
-} 
-const STATUSBAR_HEIGHT =  statusbar_from_os;
-export default function App() {
+const Pages = ({navigation}) => {
+  const BottomNavigator = createMaterialBottomTabNavigator();
   return (
-    <TailwindProvider>
-      <View className={"flex  h-full mt-10 "} style={{marginTop:STATUSBAR_HEIGHT}} >  
-        <View className="mt-20 p-10">
-          <Text className="text-center font-semibold"  style={{fontSize:35}}> Login </Text>
-        </View>
-        <View className="p-10 ">
-          <Text className="" style={{fontSize:20}}>
-            User Name
-          </Text>
-          <TextInput className="border mt-5 p-3" placeholder='username' /> 
-          <Text className="mt-10" style={{fontSize:20}}>
-            Password
-          </Text>
-          <TextInput className="border mt-5  p-3" placeholder='password' secureTextEntry={true} style={styles.default}  />
-          <Text className="mt-1 text-right" style={{fontSize:15}}>
-            Forget password ? 
-          </Text>
-          <TouchableOpacity className="mt-16">
-            <Text className="text-center p-3 text-white  bg-blue-700" style={{fontSize:20}}>Login</Text>
-          </TouchableOpacity>
-        </View>
-        <View>
-          
-        </View>
-        
-      </View>
-    </TailwindProvider>
+    <BottomNavigator.Navigator screenOptions={{gestureEnabled:false, presentation:'modal'}}   initialRouteName='Login' >
+        <BottomNavigator.Screen  name="Home" options={{tabBarIcon:({color})=>(<Ionicons name="home" size={24} color={color} />)}} component={Home} />
+        <BottomNavigator.Screen name="History" options={{tabBarIcon:({color})=>(<MaterialIcons name="history" size={27} color={color} />)}} component={History} />
+    </BottomNavigator.Navigator>
+    )
+}
+
+export default function App() {
+  const Stack = createStackNavigator();
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Login"  options={{headerStyle:{height:0}}}  component={Login}/>
+        <Stack.Screen name="Pages" options={{headerStyle:{height:0},headerLeft:null}} component={Pages}/>
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+
