@@ -1,17 +1,10 @@
 import { useEffect, useState } from 'react';
 import {Alert, BackHandler, SafeAreaView, Text,TouchableOpacity, View} from 'react-native'
 import {MaterialIcons,Ionicons} from '@expo/vector-icons'
-import Item from './Item'
 import { TailwindProvider } from 'tailwindcss-react-native';
 import Screen from './Screen';
 import { ScrollView } from 'react-native-gesture-handler';
-const ItemList = ({items,setCount,setItem}) => {
-    const result =items.map( (item,index)=> {
-        return <Item key={index} id={index} className=" " catagory={item.item} count={item.value} setData={setItem} setVal={setCount} />
-        
-    } )
-    return <>{result}</>
-}
+
 const Home = ({navigation}) => {
     useEffect(() => {
         const backAction = () => {
@@ -51,7 +44,7 @@ const Home = ({navigation}) => {
         <View className="p-10 flex flex-col py-20   justify-center ">
             <Text className="text-center text-2xl">Chose your Choice</Text>
         <ScrollView className=" ">
-                <ItemList items={items} setItem={setItem} setCount={setCount} />
+                
         <View className=" flex flex-row justify-around">
 
         <TouchableOpacity onPress={()=>{
