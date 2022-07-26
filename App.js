@@ -5,38 +5,24 @@ import "react-native-gesture-handler";
 import Home from "./components/Home";
 import History from "./components/History";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Login from "./components/Login";
 import Profile from "./components/Profile";
 import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
 import { View,Text } from "react-native";
-const Pages = ({ navigation }) => {
-  const BottomNavigator = createMaterialBottomTabNavigator();
+import Cart from "./components/Cart"
+import {STATUSBAR_HEIGHT} from './components/Screen'
+
+
+
+const Stack =() => {
+  const StackNavigatior = createStackNavigator();
   return (
-    <BottomNavigator.Navigator
-      screenOptions={{ gestureEnabled: false, presentation: "modal" }}
-      initialRouteName="Login"
-    >
-      <BottomNavigator.Screen
-        name="Home"
-        options={{
-          tabBarIcon: ({ color }) => (
-            <Ionicons name="home" size={24} color={color} />
-          ),
-        }}
-        component={Home}
-      />
-      <BottomNavigator.Screen
-        name="History"
-        options={{
-          tabBarIcon: ({ color }) => (
-            <MaterialIcons name="history" size={27} color={color} />
-          ),
-        }}
-        component={History}
-      />
-    </BottomNavigator.Navigator>
-  );
-};
+    
+    <StackNavigatior.Navigator initialRouteName="Home"   >
+      <StackNavigatior.Screen name="Home"  options={{headerStyle:{height:0} }}  component={Home}   />
+      <StackNavigatior.Screen  name="Cart" options={{headerStatusBarHeight:STATUSBAR_HEIGHT,presentation:'card',headerStyle:{height:0}}} component={Cart} />
+  </StackNavigatior.Navigator>
+    )
+}
 
 export default function App() {
   const BottomNavigator = createBottomTabNavigator ();
@@ -51,21 +37,21 @@ export default function App() {
         screenOptions={{ gestureEnabled: false, presentation: "modal",headerStyle: {
           height: 0, // Specify the height of your custom header
         } ,
-        tabBarActiveTintColor:'red',
+        tabBarActiveTintColor:'#ef4f5f',
         tabBarItemStyle:{height:60,padding:5},
         tabBarStyle:{height:60,backgroundColor:'white'}
       }}
         initialRouteName="Login"
       >
         <BottomNavigator.Screen
-          name="Home"
+          name="omePage"
           options={{
             tabBarIcon: ({ color }) => (
               <Ionicons name="home" size={30} color={color} />
             ),
             tabBarColor: "red",
           }}
-          component={Home}
+          component={Stack}
         />
         <BottomNavigator.Screen
           name="History"

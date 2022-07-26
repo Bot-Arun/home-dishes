@@ -1,205 +1,153 @@
 import {
-  ActivityIndicator,
   Text,
-  Image,
-  ImageBackground,
-  VirtualizedList,
   View,
   ScrollView,
   FlatList,
   TouchableOpacity,
   TouchableNativeFeedback,
-  ListViewBase,
+  Pressable,
 } from "react-native";
-import { TailwindProvider } from "tailwindcss-react-native";
-import Screen from "./Screen";
-import RBSheet from "react-native-raw-bottom-sheet";
-import { useRef } from "react";
+import Item from "./Item";
+import data from './data'
+import {Screen} from "./Screen";
 import { Ionicons, FontAwesome } from "@expo/vector-icons";
-import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
+import { useEffect, useState } from "react";
+import { useFocusEffect} from "@react-navigation/native";
 
-const Separotor = () => {
-  return <View className="mx-4  bg-gray-300" style={{ paddingTop: 1 }} />;
-};
-const Item = ({ title, price, desc, img }) => {
-  const model = useRef();
+
+
+// const Separotor = () => {
+//   return <View className="mx-4  bg-gray-300" style={{ paddingTop: 1 }} />;
+// };
+
+
+
+const RenderItem = ({ item, ky, count, len, setLen, setCount,handleCount }) => {
   return (
-    <View className="w-full g flex rounded-3xl flex-row justify-between py-5 bg-white my-2  "style={{elevation:10,shadowColor:'white'}} >
-      <View className="header pl-9  p-5 flex-1">
-        <Text className="text-xl text-left pt-5 text-red-600 font-bold">{title} </Text>
-        <Text className="py-3 text-left text-lg font-semibold">₹{price}</Text>
-        <View className="flex-row">
-          <Text
-            className=" text-md-center text-gray-500 text-md"
-            numberOfLines={10}
-            style={{ flexWrap: "wrap", flex: 1 }}
-          >
-            {" "}
-            {desc}
-          </Text>
-        </View>
-      </View>
-      
-      <View className="ml-auto  pt-5 pr-5">
-        <Pressable onPress={() => model.current.open()}>
-        <View className="bg-gray-100  rounded-2xl " style={{ elevation: 5 }}>
-          <Image
-            style={{
-              resizeMode: "contain",
-              shadowColor: "black",
-              width: 150,
-              height: 150,
-            }}
-            source={img}
-            />
-        </View>
-            </Pressable>
-        <TouchableNativeFeedback >
-          <Text
-            style={{ elevation: 4 }}
-            className="text-white font-bold py-2 px-9 text-lg -translate-y-2 self-center rounded-xl bg-red-500 text-center "
-          >
-            ADD
-          </Text>
-        </TouchableNativeFeedback>
-      </View>
-      <RBSheet
-        ref={model}
-        closeOnDragDown={true}
-        closeOnPressMask={true}
-        height={400}
-        customStyles={{
-          wrapper: {
-            backgroundColor: "rgba(0,0,0,0.5)",
-          },
-          container: {
-            borderTopLeftRadius: 40,
-            borderTopRightRadius: 40,
-            backgroundColor: "#fff",
-          },
-          draggableIcon: {
-            backgroundColor: "#000",
-          },
-        }}
-      >
-        <View className="">
-          <Image
-            className=""
-            style={{
-              width: "100%",
-              height: 200,
-              borderRadius: 10,
-              resizeMode: "contain",
-            }}
-            source={require("../assets/samosa.png")}
-          />
-          <View className="header pl-9  p-5 flex-1">
-            <Text className="text-xl text-left pt-5 font-bold text-red-500">
-              Tandoori Zinger{" "}
-            </Text>
-            <Text className="py-3 text-left text-lg font-semibold">₹200</Text>
-            <View className="flex-row">
-              <Text
-                className=" text-md-center text-gray-500 text-md"
-                numberOfLines={10}
-                style={{ flexWrap: "wrap", flex: 1 }}
-              >
-                Chicken zinger with a deliciout tandoori sauce
-              </Text>
-            </View>
-          </View>
-        </View>
-      </RBSheet>
-    </View>
-  );
-};
-const RenderItem = ({ item, key }) => {
-  return (
-    <>
     <Item
-      key={key}
+      id={item.id}
       title={item.title}
       price={item.price}
       desc={item.desc}
       img={item.img}
+      count={count}
+      setCount={setCount}
+      setLen={setLen}
+      len={len}
+      handleCount={handleCount}
     />
-    </>
   );
 };
-const data = [
-  {
-    title: "Tandoori Zinger",
-    price: 200,
-    desc: "Chicken zinger with a deliciout tandoori sauce",
-    img: require("../assets/samosa.png"),
-  },
-  {
-    title: "Tandoori Zinger",
-    price: 200,
-    desc: "Chicken zinger with a deliciout tandoori sauce",
-    img: require("../assets/samosa.png"),
-  },
-  {
-    title: "Tandoori Zinger",
-    price: 200,
-    desc: "Chicken zinger with a deliciout tandoori sauce",
-    img: require("../assets/samosa.png"),
-  },
-  {
-    title: "Tandoori Zinger",
-    price: 200,
-    desc: "Chicken zinger with a deliciout tandoori sauce",
-    img: require("../assets/samosa.png"),
-  },
-  {
-    title: "Tandoori Zinger",
-    price: 200,
-    desc: "Chicken zinger with a deliciout tandoori sauce",
-    img: require("../assets/samosa.png"),
-  },
-  {
-    title: "Tandoori Zinger",
-    price: 200,
-    desc: "Chicken zinger with a deliciout tandoori sauce",
-    img: require("../assets/samosa.png"),
-  },
-  {
-    title: "Tandoori Zinger",
-    price: 200,
-    desc: "Chicken zinger with a deliciout tandoori sauce",
-    img: require("../assets/samosa.png"),
-  },
-];
-const ItemList = () => {
-  const list = data.map((item, key) => (
-    <RenderItem key={key} item={item}></RenderItem>
-  ));
-  return <>{list}</>;
-};
-const Home = ({ navigation, title, width }) => {
+
+// const ItemList = ({count,setCount,setLen,len}) => {
+
+//   const list = data.map((item, ky) => (
+//     <RenderItem ky={ky} item={item} count={count} setCount={setCount} setLen={setLen} len={len} />
+//   ));
+//   return <>{list}</>;
+// };
+const Home = ({navigation,route }) => {
+  const [len, setLen] = useState(data.length);
+  const [count, setCount] = useState(Array(len).fill(0));
+  const [noItems,setNoItems] = useState(0);
+  const [totPrice ,setTotPrice] =useState(0);
+  
+  // if (route.) {
+    // count = countC;
+  console.log("route",route)
+  const handleCount = (id,val,opp) => {
+    count[id] =val;
+    setCount([...count]);
+    if (opp) {
+      setNoItems(value => value+1)
+      setTotPrice(price=>price+data[id].price)
+    }
+    else {
+      setNoItems(value => value-1) 
+      setTotPrice(price=>price-data[id].price)
+    }
+  }
+  // useFocusEffect(()=>{
+  //   try {
+      
+  //     if (route.params) {
+  
+  //       console.log("from focus",route.params.count, count ===route.params.count )
+  //       // setCount([...(route.params.count)])
+  //     }
+  //   }
+  //   catch (err) {console.log(err)}
+  // })
+  useEffect(()=>{
+    if (route.params) {
+  
+      console.log("from focus",route.params.count, count ===route.params.count )
+      setCount([...(route.params.count)])
+    }
+  },[route.params])
   return (
     <Screen>
-      <View className="flex flex-col bg-gray-300 ">
-        <ScrollView stickyHeaderIndices={[0]} className=" min-h-fit">
-          <View className="flex py-3 px-5 justify-between flex-row bg-white " >
-            <View>
-              <Ionicons name="md-logo-firefox" size={34} color="#335566" />
-            </View>
-            <View className="flex flex-row">
-              <Ionicons name="md-search-sharp" size={34} color="#335566" />
-              <FontAwesome name="user-circle" size={34} color="#335566" />
-            </View>
+      <View className="flex flex-col min-h-fit bg-gray-300 ">
+        <View className="  w-full flex py-3 px-5 justify-between flex-row bg-white ">
+          <View>
+            <Ionicons name="md-logo-firefox" size={34} color="#335566" />
           </View>
-        <View className="px-3">
-
-          <ItemList />
+          <View className="flex flex-row">
+            <Ionicons name="md-search-sharp" size={34} color="#335566" />
+            <FontAwesome name="user-circle" size={34} color="#335566" />
+          </View>
         </View>
-          
-        </ScrollView>
-        <View className="absolute w-full flex justify-center bottom-5">
-          <TouchableOpacity className="self-center py-2 px-5 bg-slate-700 rounded-full">
-            <Text className="self-center text-white text-md">VIEW MENU</Text>
+        <View
+          className="absolute w-full flex flex-col justify-center bottom-32"
+          style={{ zIndex: 10 }}
+        >
+          <TouchableOpacity style={{elevation:7}} className="self-center py-2 px-5 bg-slate-700 rounded-full">
+            <Text  className="self-center text-white text-md">VIEW MENU</Text>
           </TouchableOpacity>
+          {noItems>0 && <View className="px-2">
+            <TouchableNativeFeedback onPress={()=>navigation.navigate("Cart",{count})} >
+
+            <View className={"flex w-full px-4 flex-row justify-between rounded-md mt-1 bg-[#ef4f5f] h-26"}>
+              <View className="flex flex-col py-2">
+                <Text className="self-center  font-semibold text-white">
+                {noItems} Items
+                </Text>
+                <Text className="font-semibold text-white">₹{totPrice}</Text>
+              </View>
+              <View  className="self-center">
+              <Text className="self-center  text-white font-semibold ">
+                View Cart
+              </Text>
+
+              </View>
+            </View>
+            </TouchableNativeFeedback>
+          </View>}
+        </View>
+        <View className=" min-h-fit">
+          <View className="mb-[180px] px-3">
+            {/* <ItemList len={len} count={count} setCount={setCount} setLen={setLen}  /> */}
+            <FlatList
+              data={data}
+              ListFooterComponent={<View className={ noItems==0 ?"h-10":"h-20"}></View>}
+              renderItem={({ item }) => (
+                <RenderItem
+                  count={count}
+                  item={item}
+                  setCount={setCount}
+                  setLen={setLen}
+                  len={len}
+                  handleCount={handleCount}
+                  
+                />
+              )}
+              
+              len={len}
+              count={count}
+              setCount={setCount}
+              setLen={setLen}
+            ></FlatList>
+          </View>
         </View>
       </View>
     </Screen>

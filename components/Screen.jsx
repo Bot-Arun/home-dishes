@@ -16,4 +16,4 @@ const Screen = (props) => {
   );
 };
 
-export default Screen;
+module.exports =  {Screen,STATUSBAR_HEIGHT};
