@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import {Alert, BackHandler, SafeAreaView, Text,TouchableOpacity, View} from 'react-native'
+import {Alert, BackHandler, SafeAreaView, Text,TouchableNativeFeedback,TouchableOpacity, View} from 'react-native'
 import {MaterialIcons,Ionicons} from '@expo/vector-icons'
 import Item from './Item'
 import { TailwindProvider } from 'tailwindcss-react-native';
@@ -50,7 +50,7 @@ const Home = ({navigation}) => {
     <TailwindProvider>
         <View className="p-10 flex flex-col py-20   justify-center ">
             <Text className="text-center text-2xl">Chose your Choice</Text>
-        <ScrollView className=" ">
+        <ScrollView  className=" ">
                 <ItemList items={items} setItem={setItem} setCount={setCount} />
         <View className=" flex flex-row justify-around">
 
@@ -68,6 +68,12 @@ const Home = ({navigation}) => {
         </TouchableOpacity>}
         </View>
         </ScrollView>
+        <View className="flex flex-row justify-center">
+
+        <TouchableNativeFeedback className=" self-center ">
+          <Text className="text-center bg-blue-600 self-center px-5 py-3 text-white rounded-xl font-medium">Publish</Text>
+        </TouchableNativeFeedback>
+        </View>
         </View>
     </TailwindProvider>
     </Screen>)
