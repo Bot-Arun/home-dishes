@@ -9,13 +9,13 @@ const Item =({id,catagory,count, setData ,setVal})=> {
     }
 
     return(
-        <View className="bg-gray-200 pb-4 px-3 mt-5 rounded-2xl">
+        <View className="bg-slate-400 pb-4 px-3 mt-5 rounded-2xl">
         <View className="flex mt-5  flex-col justify-between">
             {/* <Text>this</Text> */}
-            <Picker  selectedValue={catagory} onValueChange={(val)=>setData(id,val)} >
-                <Picker.Item label='Idley' value={"idely"} />
-                <Picker.Item label='Dosa' value={"dosa"} />
-                <Picker.Item label='Pongal' value={"ponga"} />
+            <Picker  className=""  selectedValue={catagory} onValueChange={(val)=>setData(id,val)} >
+                <Picker.Item   label='Idley' value={"Idely"} />
+                <Picker.Item label='Dosa' value={"Dosa"} />
+                <Picker.Item label='Pongal' value={"Pongal"} />
             </Picker>
         </View>
         <View className="flex flex-row justify-between">

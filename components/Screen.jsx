@@ -9,7 +9,7 @@ const STATUSBAR_HEIGHT =  statusbar_from_os;
 
 const Screen = (props) => {
     return (
-        <View style={{marginTop:STATUSBAR_HEIGHT}}>
+        <View style={{paddingTop:STATUSBAR_HEIGHT ,backgroundColor:'#1E293B'}}>
             {props.children}
         </View>
     )
