@@ -12,6 +12,8 @@ db.on('error',err => console.log(err)) ;
 
 app.use('/logs',logRoutes)
 
+app.get('/pink',(req,res) => res.send('connected'))
+
 // app.use('/users',userRoutes)
 
 app.listen(PORT,() => console.log('listening in port' +PORT))
