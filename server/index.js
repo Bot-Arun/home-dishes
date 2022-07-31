@@ -16,4 +16,4 @@ app.get('/pink',(req,res) => res.send('connected'))
 
 // app.use('/users',userRoutes)
 
-app.listen(PORT,() => console.log('listening in port' +PORT))
+app.listen(process.env.PORT ||PORT,() => console.log('listening in port' +PORT))
